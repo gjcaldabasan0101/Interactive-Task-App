@@ -1,0 +1,97 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:wght@500&' rel='stylesheet'>
+    <title>Task App</title>
+  </head>
+
+  <!--start of the body content-->
+  <body>
+    <div class="container mt-4">
+      <p id="app-title">TASK APPLICATION</p>
+      <h6 class="display-6">My Tasks</h6>
+      <hr>
+        <!--add new input for submitting new task-->
+        <button type="submit" class="btn btn-default text-left  mb-3" id="task-btn">
+          <i class="fas fa-plus text-primary mr-4" id="task-btn"></i>Add a task
+        </button>
+        <br>
+
+        <!--form for submiting new task-->
+        <form>
+          <!--table for susbmitting & displaying new task-->
+          <table class="table table-sm">
+            <thead id="task-head">
+             
+            </thead> 
+            <tbody id="task-body"></tbody>
+          </table>
+       
+        </form>  
+      </div> 
+    </div>
+  </body>
+  <!--end of the body content-->
+
+
+  <!--script tag for javascript code-->
+  <script src="main.js"></script>
+
+  <!--css style sheet-->
+  <style>
+    body {
+      font-family: 'Nanum Pen Script', cursive;
+      font-family: 'Roboto', sans-serif;
+    }
+    
+    .task-completed{
+      border-radius: 30px;
+      
+    }
+    button:hover{
+      background-color: #f7f7f7;
+    }
+
+    button#task-btn{
+      width: 95%;
+      box-shadow: none;
+    }
+  
+    p#app-title{
+      font-size: 11px;
+      font-weight: bolder;
+      color: gray;
+    }
+    #task-btn{
+      border-radius: 30px;
+    }
+
+    #task-row:hover{
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+    }
+    #task{
+      border: none;
+      box-shadow:none;
+    
+    }
+    td{
+      font-size: 15px;
+      
+    }
+
+    tr#input-row{
+      border-bottom: 3px solid skyblue;
+    }
+
+    td.task-info{
+      padding: 12px 0 0 16px;
+      width: 100%;
+    }
+ 
+    </style>
+  </html>
