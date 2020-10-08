@@ -1,6 +1,5 @@
 const taskList = document.querySelector('.task-list');
 
-
 //event to create input for new task
 document.querySelector('#task-btn').addEventListener('click', (e) => {
 
@@ -15,9 +14,10 @@ document.querySelector('#task-btn').addEventListener('click', (e) => {
     </button>
   </th>
   <th>
-    <input type="text" class="form-control" id="task" autofocus>
+    <input type="text" class="form-control" id="task">
   </th>
   `;
+
   //append the created element
   document.querySelector('#task-head').appendChild(inputRow);
 
@@ -71,7 +71,6 @@ let TaskId = class{
     if(items.length == 0) {
       return rand;
     }
-
     else if(items.length != 0) {
       for(let i = 0; i < items.length ; i++){
         let item = items[i];
@@ -85,9 +84,6 @@ let TaskId = class{
     }
   }
 }
-  
-
-
 // Ui class : Holds all the UI Tasks
 let UI = class {
 
@@ -95,13 +91,24 @@ let UI = class {
   static displayTasks() {
     const tasks = Store.getItem();
     tasks.forEach((task) => {
-      if(task.status == 'incomplete'){
-        UI.addToTaskList(task)
+
+      if(task.status == 'incomplete') {
+        UI.addToTaskList(task);
       }
     });
   }
 
-  
+  static displayCompleteTasks(){
+    const tasks = Store.getItem();
+    tasks.forEach((task) => {
+
+      if(task.status == 'complete')  {
+        const complete = tasks.filter(({status}) => status == 'complete').length;
+        UI.compTask(complete);
+      }
+    });
+  }
+
   //create a new element for the task
   static addToTaskList(task) {
     const list = document.querySelector('#task-body');
@@ -117,6 +124,7 @@ let UI = class {
         </button>
       </td>
       <td class="task-info">${task.todo}</td>
+      <td class="task-id">${task.taskId}</td>
     `;
 
     list.insertBefore(row, list.firstElementChild);
@@ -138,6 +146,28 @@ let UI = class {
       el.parentElement.parentElement.parentElement.remove();
     }
   }
+  //mark task as complete
+  static completeTask(task1) {
+    const newTask = Store.getItem();
+    newTask.forEach((task) =>{
+      if(task.taskId == task1){
+        task.status = "complete";
+      }
+        
+    });
+    localStorage.setItem('tasks', JSON.stringify(newTask));
+
+    }
+
+    static compTask(task){
+      const footer = document.querySelector('.footer-visible');
+      footer.innerHTML = `
+        <div class="footer-container">
+          <label class="label-comp ml-3 mt-3">Completed (${task})</label>
+          <button class="btn btn-default mr-4 mt-2 arrow-up"><span class="fas fa-chevron-up"></span></button>
+        </div>
+      `
+    }
   
   //change the circle icon to check 
   static checkOver(el){
@@ -152,11 +182,12 @@ let UI = class {
       el.className = "far fa-circle text-primary circle"
     }
   }
-}//end
-
+}
 
 //Event for displaying the task
 document.addEventListener('DOMContentLoaded', UI.displayTasks);
+
+document.addEventListener('DOMContentLoaded', UI.displayCompleteTasks);
 
 //Submit event for new task
 document.addEventListener('submit', (e) => {
@@ -180,13 +211,22 @@ document.addEventListener('submit', (e) => {
 
 //Event for removing done task
 document.querySelector('#task-body').addEventListener('click', (e) => {
+  
   UI.doneTask(e.target);
+
+  UI.completeTask(e.target.parentElement.parentElement.parentElement.lastElementChild.textContent);
+
+  UI.displayCompleteTasks();
+
 })
 
 //Change icon to check when mouse hover the icon
 document.querySelector('#task-body').addEventListener('mouseover', (e) => {
   const parent = e.target;
-  UI.checkOver(parent)
+
+  UI.checkOver(parent);
+
+
 })
 
 //Change back the icon when mouse is hover out
