@@ -11,31 +11,86 @@
 
   <!--start of the body content-->
   <body>
-    <div class="container mt-4">
-      <p id="app-title">TASK APPLICATION</p>
-      <h6 class="display-6">My Tasks</h6>
-      <hr>
-      <!--add new input for submitting new task-->
-      <button type="submit" class="btn btn-default text-left  mb-3" id="task-btn">
-        <i class="fas fa-plus text-primary mr-4" id="task-btn"></i>Add a task
-      </button>
-      <br>
-
-      <!--form for submiting new task-->
-      <form>
-        <!--table for susbmitting & displaying new task-->
-        <table class="table table-sm">
-          <thead id="task-head">
-          </thead> 
-          <tbody id="task-body">
-          </tbody>
-        </table>
-      </form>
-      <footer class="footer-visible">
-      
-      </footer>
-    </div>
-   
+      <div class="mt-3 ml-3 mr-3 main-container">
+        <p id="app-title">TASK APPLICATION</p>
+        <h6 class="display-6">My Tasks</h6>
+        <hr>
+        <!--add new input for submitting new task-->
+        <button type="submit" class="btn btn-default text-left  mb-3" id="task-btn">
+          <i class="fas fa-plus text-primary mr-4" id="task-btn"></i>Add a task
+        </button>
+  
+        <!--form for submiting new task-->
+        <form>
+          <!--table for susbmitting & displaying new task-->
+          <table class="table-sm">
+            <thead id="task-head">
+            </thead> 
+            <tbody id="task-body">
+            </tbody>
+          </table>
+        </form>
+      </div>
+      <div class="complete-container mt-3">
+        <div class="complete-container-body complete-content">
+          <table class="table-sm">
+            <tr>
+              <td>
+                <button class="btn btn-default btn-complete">
+                  <span class="fas fa-check text-primary">
+                  </span>
+                </button>
+              </td>
+              <td width="90%">What to do?</td>
+              <td width="10%">
+                <button class="btn btn-default btn-trash">
+                  <span class="fas fa-trash text-danger">
+                  </span>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button class="btn btn-default btn-complete">
+                  <span class="fas fa-check text-primary">
+                  </span>
+                </button>
+              </td>
+              <td width="90%">What to do?</td>
+              <td width="10%">
+                <button class="btn btn-default btn-trash">
+                  <span class="fas fa-trash text-danger">
+                  </span>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button class="btn btn-default btn-complete">
+                  <span class="fas fa-check text-primary">
+                  </span>
+                </button>
+              </td>
+              <td width="90%">What to do?</td>
+              <td width="10%">
+                <button class="btn btn-default btn-trash">
+                  <span class="fas fa-trash text-danger">
+                  </span>
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="complete-container-header completed-task">
+          <label class="label-comp ml-3 mt-3">Completed (0)</label>
+          <button class="btn btn-default mr-1 mt-2 arrow-up float-right">
+            <span class="fas fa-chevron-up">
+            </span>
+          </button>
+        </div>
+       
+        </div>
+      </div>
   </body>
   <!--end of the body content-->
 
@@ -45,14 +100,15 @@
 
   <!--css style sheet-->
   <style>
-    body {
-      font-family: 'Nanum Pen Script', cursive;
+    html , body {
       font-family: 'Roboto', sans-serif;
+      height: 100%;
+      margin: 0;
+      padding: 0;
     }
+    .main-container{
+      min-height: 100%;
     
-    .task-completed{
-      border-radius: 30px;
-      
     }
     button:hover{
       background-color: #f7f7f7;
@@ -68,59 +124,70 @@
       font-weight: bolder;
       color: gray;
     }
-    #task-btn{
-      border-radius: 30px;
+
+    #task-row{
+      transition-duration: .3s;
     }
 
     #task-row:hover{
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    
     }
+    
     #task{
       border: none;
       box-shadow:none;
-    
     }
+    
     td{
-      font-size: 15px;
-      
+      font-size: 15px;  
     }
 
     tr#input-row{
       border-bottom: 3px solid skyblue;
+      
     }
 
-    td.task-info{
-      padding: 12px 0 0 16px;
-      width: 100%;
+    td.task-info, td.task-id{
+      border-bottom: 1px solid #D0D1D2;
+      width: 100%
     }
+
     .task-id{
       visibility: hidden;
     }
 
-    .footer-hidden{ 
-      visibility: hidden;
-    }
-
-    .footer-visible{
-      position: fixed;
-      border-top: 1px solid	 #D0D1D2;
-      bottom: 0;
-      left: 0;
+    .complete-container{
+      border-top: 1px solid #D0D1D2;
       width: 100%;
-      height: 60px;
+      left: 0;
       visibility: visible;
+    }
+    
+    .complete-content{
+      padding: 0 18px;
+      display: none;
+      overflow: auto;
+
+    }
+    
+    .completed-task{
+      cursor: pointer;
     }
 
     .label-comp{
-     float: left;
      color: #6B6C6C;
+     
     }
+
     .arrow-up{
       margin: 5px 0px 0px 0px;
       border-radius: 30px;
-      float: right;
+      
       color: #6B6C6C; 
+    }
+
+    .task-completed, #task-btn, .btn-trash, .btn-complete{
+      border-radius: 30px; 
     }
     </style>
   </html>

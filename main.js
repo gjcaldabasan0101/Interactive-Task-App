@@ -13,8 +13,8 @@ document.querySelector('#task-btn').addEventListener('click', (e) => {
       </span>
     </button>
   </th>
-  <th>
-    <input type="text" class="form-control" id="task">
+  <th width="100% ">
+    <input type="text" class="form-control task" id="task">
   </th>
   `;
 
@@ -126,8 +126,9 @@ let UI = class {
       <td class="task-info">${task.todo}</td>
       <td class="task-id">${task.taskId}</td>
     `;
-
+    
     list.insertBefore(row, list.firstElementChild);
+   
   }
 
   //clear the input value after submit
@@ -156,18 +157,21 @@ let UI = class {
         
     });
     localStorage.setItem('tasks', JSON.stringify(newTask));
+  }
 
-    }
+  static compTask(task){
 
-    static compTask(task){
-      const footer = document.querySelector('.footer-visible');
-      footer.innerHTML = `
-        <div class="footer-container">
-          <label class="label-comp ml-3 mt-3">Completed (${task})</label>
-          <button class="btn btn-default mr-4 mt-2 arrow-up"><span class="fas fa-chevron-up"></span></button>
-        </div>
-      `
-    }
+    // const complete = document.querySelector('.complete-container-header');
+    // complete.innerHTML = `
+    // <label class="label-comp mt-3">Completed (${task})</label>
+    // <button class="btn btn-default mr-1 mt-2 arrow-up float-right">
+    //   <span class="fas fa-chevron-up">
+    //   </span>
+    // </button>
+    // `
+    // document.querySelector('.complete-container').appendChild(complete);
+
+  }
   
   //change the circle icon to check 
   static checkOver(el){
@@ -197,36 +201,27 @@ document.addEventListener('submit', (e) => {
   const taskId = TaskId.id();
   const task = document.querySelector('#task').value;
   const status = "incomplete";
-
   const newTask = new Task(task, taskId, status);
 
   UI.addToTaskList(newTask);
-
   Store.addItem(newTask);
-
   UI.clearForm();
-
   UI.removeTaskForm();
+
 })
 
 //Event for removing done task
 document.querySelector('#task-body').addEventListener('click', (e) => {
-  
-  UI.doneTask(e.target);
-
   UI.completeTask(e.target.parentElement.parentElement.parentElement.lastElementChild.textContent);
-
+  UI.doneTask(e.target);
   UI.displayCompleteTasks();
-
+  
 })
 
 //Change icon to check when mouse hover the icon
 document.querySelector('#task-body').addEventListener('mouseover', (e) => {
   const parent = e.target;
-
   UI.checkOver(parent);
-
-
 })
 
 //Change back the icon when mouse is hover out
@@ -234,6 +229,19 @@ document.querySelector('#task-body').addEventListener('mouseout', (e) => {
   const parent = e.target;
   UI.checkOut(parent)
 })
+
+const cli = document.querySelector('.completed-task');
+
+cli.addEventListener('click', () => {
+  const content = cli.previousElementSibling;
+  if (content.style.display === "block") {
+    content.style.display = "none";
+    cli.style.display = "block"
+  } else {
+    content.style.display = "block";
+    cli.style.display = "none"
+  }
+});
 
 
 
